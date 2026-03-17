@@ -7,8 +7,18 @@ use App\Models\User;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * @group User management
+ *
+ * Those endpoints allows you to add user, login and logout.
+ */
 class AuthController extends Controller
 {
+    /**
+     * 👤 Register an user
+     * 
+     * Name, email and password are required to register an user.
+     */
     public function register(Request $request)
     {
         $fields = $request->validate([
@@ -27,6 +37,12 @@ class AuthController extends Controller
             'token' => $token], 201);
     }
 
+    /**
+     * 👤 Login an user
+     *
+     * This endpoint allows you to login an user.
+     * The email must exist in the database, and the password must be correct.
+     */
     public function login(Request $request)
     {
         $fields = $request->validate([
@@ -48,6 +64,13 @@ class AuthController extends Controller
         ], 200); 
     }
 
+    /**
+     * 👤 🔒 Logout an user
+     *
+     * This endpoint allows you to logout an user.
+     * You must be authenticated to access this endpoint, and the token used for authentication will be revoked.
+     * @authenticated
+     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
