@@ -1,9 +1,49 @@
-// Ce fichier est un stub temporaire. Ce composant affiche le fil d'Ariane (breadcrumbs)
-// dans l'en-tête de l'application. Il n'a pas encore été migré car il dépendait
-// du composant Link d'Inertia.js. Sera réécrit avec react-router-dom dans une prochaine étape.
-// NE PAS utiliser ce stub dans du nouveau code.
-import type { BreadcrumbItem } from '@/types';
+import { Link } from 'react-router-dom';
+import { Fragment } from 'react';
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import type { BreadcrumbItem as BreadcrumbItemType } from '@/types';
 
-export function Breadcrumbs({ breadcrumbs = [] }: { breadcrumbs?: BreadcrumbItem[] }) {
-    return null;
+export function Breadcrumbs({
+    breadcrumbs,
+}: {
+    breadcrumbs: BreadcrumbItemType[];
+}) {
+    return (
+        <>
+            {breadcrumbs.length > 0 && (
+                <Breadcrumb>
+                    <BreadcrumbList>
+                        {breadcrumbs.map((item, index) => {
+                            const isLast = index === breadcrumbs.length - 1;
+                            return (
+                                <Fragment key={index}>
+                                    <BreadcrumbItem>
+                                        {isLast ? (
+                                            <BreadcrumbPage>
+                                                {item.title}
+                                            </BreadcrumbPage>
+                                        ) : (
+                                            <BreadcrumbLink asChild>
+                                                <Link to={item.href}>
+                                                    {item.title}
+                                                </Link>
+                                            </BreadcrumbLink>
+                                        )}
+                                    </BreadcrumbItem>
+                                    {!isLast && <BreadcrumbSeparator />}
+                                </Fragment>
+                            );
+                        })}
+                    </BreadcrumbList>
+                </Breadcrumb>
+            )}
+        </>
+    );
 }

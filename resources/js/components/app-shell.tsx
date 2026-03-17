@@ -1,10 +1,18 @@
-// Ce fichier est un stub temporaire. Ce composant est le conteneur principal du layout
-// de l'application (sidebar + contenu). Il n'a pas encore été migré car il dépend
-// de composants Inertia (app-sidebar, nav-main, nav-user) qui seront réécrits
-// dans une prochaine étape de la migration.
-// NE PAS utiliser ce stub dans du nouveau code.
-import type { PropsWithChildren } from 'react';
+import type { ReactNode } from 'react';
 import { SidebarProvider } from '@/components/ui/sidebar';
-export function AppShell({ children }: PropsWithChildren) {
+import type { AppVariant } from '@/types';
+
+type Props = {
+    children: ReactNode;
+    variant?: AppVariant;
+};
+
+export function AppShell({ children, variant = 'sidebar' }: Props) {
+    if (variant === 'header') {
+        return (
+            <div className="flex min-h-screen w-full flex-col">{children}</div>
+        );
+    }
+
     return <SidebarProvider>{children}</SidebarProvider>;
 }
