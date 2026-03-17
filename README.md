@@ -29,7 +29,7 @@ php artisan route:list
 ```bash
 php artisan scribe:generate
 
-Http://{base_url}/api/docs
+Http://{base_url}/docs
 ```
 
 ## How to populate database with fake data
