@@ -2,6 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/', function() {
+//     return view('services');
+// });
+
 Route::get('/', function() {
-    return view('services');
+    $routes = collect(Route::getRoutes())
+    ->filter(fn($route) => str_starts_with($route->uri(), 'api/'))
+    ->map(function ($route) {
+        return [
+            'method' => implode('|', $route->methods()),
+            'uri' => $route->uri(),
+            'name' => $route->getName(),
+            'action' => $route->getActionName(),
+            'middleware' => $route->gatherMiddleware(),
+        ];
+    });
+
+    return response()->json($routes);
 });

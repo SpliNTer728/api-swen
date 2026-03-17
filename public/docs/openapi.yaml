@@ -1,0 +1,275 @@
+openapi: 3.0.3
+info:
+  title: 'API SWEN Documentation'
+  description: 'This is an api ressources for sailboat planning and management. It allows users to create and manage their sailboat bookings, plan their tranings, and track their progress.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:8000'
+tags:
+  -
+    name: Endpoints
+    description: ''
+  -
+    name: 'User management'
+    description: "\nThose endpoints allows you to add user, login and logout."
+paths:
+  /api/user:
+    get:
+      summary: ''
+      operationId: getApiUser
+      description: ''
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/posts:
+    get:
+      summary: 'Display a listing of the resource.'
+      operationId: displayAListingOfTheResource
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 2
+                    user_id:
+                      type: integer
+                      example: 2
+                    title:
+                      type: string
+                      example: 'poste de tata'
+                    body:
+                      type: string
+                      example: 'THis is the body 123'
+                    created_at:
+                      type: string
+                      example: '2026-03-12T19:49:28.000000Z'
+                    updated_at:
+                      type: string
+                      example: '2026-03-12T19:49:28.000000Z'
+                example:
+                  -
+                    id: 2
+                    user_id: 2
+                    title: 'poste de tata'
+                    body: 'THis is the body 123'
+                    created_at: '2026-03-12T19:49:28.000000Z'
+                    updated_at: '2026-03-12T19:49:28.000000Z'
+      tags:
+        - Endpoints
+      security: []
+    post:
+      summary: 'Store a newly created resource in storage.'
+      operationId: storeANewlyCreatedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: b
+                body:
+                  type: string
+                  description: ''
+                  example: architecto
+              required:
+                - title
+                - body
+      security: []
+  '/api/posts/{id}':
+    get:
+      summary: 'Display the specified resource.'
+      operationId: displayTheSpecifiedResource
+      description: ''
+      parameters: []
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'Post created successfully'
+                  post:
+                    id: 2
+                    user_id: 2
+                    title: 'poste de tata'
+                    body: 'THis is the body 123'
+                    created_at: '2026-03-12T19:49:28.000000Z'
+                    updated_at: '2026-03-12T19:49:28.000000Z'
+                properties:
+                  message:
+                    type: string
+                    example: 'Post created successfully'
+                  post:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 2
+                      user_id:
+                        type: integer
+                        example: 2
+                      title:
+                        type: string
+                        example: 'poste de tata'
+                      body:
+                        type: string
+                        example: 'THis is the body 123'
+                      created_at:
+                        type: string
+                        example: '2026-03-12T19:49:28.000000Z'
+                      updated_at:
+                        type: string
+                        example: '2026-03-12T19:49:28.000000Z'
+      tags:
+        - Endpoints
+      security: []
+    put:
+      summary: 'Update the specified resource in storage.'
+      operationId: updateTheSpecifiedResourceInStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: b
+                body:
+                  type: string
+                  description: ''
+                  example: architecto
+              required:
+                - title
+                - body
+      security: []
+    delete:
+      summary: 'Remove the specified resource from storage.'
+      operationId: removeTheSpecifiedResourceFromStorage
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the post.'
+        example: 2
+        required: true
+        schema:
+          type: integer
+  /api/register:
+    post:
+      summary: '👤 Register an user'
+      operationId: RegisterAnUser
+      description: 'Name, email and password are required to register an user.'
+      parameters: []
+      responses: {  }
+      tags:
+        - 'User management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: b
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: zbailey@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: architecto
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/login:
+    post:
+      summary: '👤 Login an user'
+      operationId: LoginAnUser
+      description: "This endpoint allows you to login an user.\nThe email must exist in the database, and the password must be correct."
+      parameters: []
+      responses: {  }
+      tags:
+        - 'User management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address. The <code>email</code> of an existing record in the users table.'
+                  example: gbailey@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: architecto
+              required:
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: '👤 🔒 Logout an user'
+      operationId: LogoutAnUser
+      description: "This endpoint allows you to logout an user.\nYou must be authenticated to access this endpoint, and the token used for authentication will be revoked."
+      parameters: []
+      responses: {  }
+      tags:
+        - 'User management'
