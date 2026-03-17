@@ -13,29 +13,10 @@ tags:
   -
     name: 'User management'
     description: "\nThose endpoints allows you to add user, login and logout."
+  -
+    name: 'User resources'
+    description: "\nThose endpoints allows you to fetch users resources."
 paths:
-  /api/user:
-    get:
-      summary: ''
-      operationId: getApiUser
-      description: ''
-      parameters: []
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
   /api/posts:
     get:
       summary: 'Display a listing of the resource.'
@@ -51,33 +32,7 @@ paths:
                 type: array
                 items:
                   type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 2
-                    user_id:
-                      type: integer
-                      example: 2
-                    title:
-                      type: string
-                      example: 'poste de tata'
-                    body:
-                      type: string
-                      example: 'THis is the body 123'
-                    created_at:
-                      type: string
-                      example: '2026-03-12T19:49:28.000000Z'
-                    updated_at:
-                      type: string
-                      example: '2026-03-12T19:49:28.000000Z'
-                example:
-                  -
-                    id: 2
-                    user_id: 2
-                    title: 'poste de tata'
-                    body: 'THis is the body 123'
-                    created_at: '2026-03-12T19:49:28.000000Z'
-                    updated_at: '2026-03-12T19:49:28.000000Z'
+                example: []
       tags:
         - Endpoints
       security: []
@@ -115,46 +70,18 @@ paths:
       description: ''
       parameters: []
       responses:
-        201:
+        404:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: 'Post created successfully'
-                  post:
-                    id: 2
-                    user_id: 2
-                    title: 'poste de tata'
-                    body: 'THis is the body 123'
-                    created_at: '2026-03-12T19:49:28.000000Z'
-                    updated_at: '2026-03-12T19:49:28.000000Z'
+                  message: 'No query results for model [App\Models\Post] 16'
                 properties:
                   message:
                     type: string
-                    example: 'Post created successfully'
-                  post:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        example: 2
-                      user_id:
-                        type: integer
-                        example: 2
-                      title:
-                        type: string
-                        example: 'poste de tata'
-                      body:
-                        type: string
-                        example: 'THis is the body 123'
-                      created_at:
-                        type: string
-                        example: '2026-03-12T19:49:28.000000Z'
-                      updated_at:
-                        type: string
-                        example: '2026-03-12T19:49:28.000000Z'
+                    example: 'No query results for model [App\Models\Post] 16'
       tags:
         - Endpoints
       security: []
@@ -199,7 +126,7 @@ paths:
         in: path
         name: id
         description: 'The ID of the post.'
-        example: 2
+        example: 16
         required: true
         schema:
           type: integer
@@ -273,3 +200,25 @@ paths:
       responses: {  }
       tags:
         - 'User management'
+  /api/users:
+    get:
+      summary: '👤 Fetch all users'
+      operationId: FetchAllUsers
+      description: 'This endpoint allows you to fetch all users.'
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'User resources'
+      security: []

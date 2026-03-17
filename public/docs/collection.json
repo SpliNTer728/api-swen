@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "API SWEN Documentation",
-        "_postman_id": "b04faa27-00a0-44f4-9282-4b321055b1a0",
+        "_postman_id": "18f5c92e-f161-4841-8450-1a9dfff406a4",
         "description": "This is an api ressources for sailboat planning and management. It allows users to create and manage their sailboat bookings, plan their tranings, and track their progress.",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -19,54 +19,6 @@
             "name": "Endpoints",
             "description": "",
             "item": [
-                {
-                    "name": "GET api\/user",
-                    "request": {
-                        "url": {
-                            "host": "{{baseUrl}}",
-                            "path": "api\/user",
-                            "query": [],
-                            "raw": "{{baseUrl}}\/api\/user"
-                        },
-                        "method": "GET",
-                        "header": [
-                            {
-                                "key": "Content-Type",
-                                "value": "application\/json"
-                            },
-                            {
-                                "key": "Accept",
-                                "value": "application\/json"
-                            }
-                        ],
-                        "body": null,
-                        "description": "",
-                        "auth": {
-                            "type": "noauth"
-                        }
-                    },
-                    "response": [
-                        {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
-                            "name": ""
-                        }
-                    ]
-                },
                 {
                     "name": "Display a listing of the resource.",
                     "request": {
@@ -110,7 +62,7 @@
                                 }
                             ],
                             "code": 200,
-                            "body": "[{\"id\":2,\"user_id\":2,\"title\":\"poste de tata\",\"body\":\"THis is the body 123\",\"created_at\":\"2026-03-12T19:49:28.000000Z\",\"updated_at\":\"2026-03-12T19:49:28.000000Z\"}]",
+                            "body": "[]",
                             "name": ""
                         }
                     ]
@@ -158,7 +110,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "2",
+                                    "value": "16",
                                     "description": "The ID of the post."
                                 }
                             ]
@@ -196,8 +148,8 @@
                                     "value": "*"
                                 }
                             ],
-                            "code": 201,
-                            "body": "{\"message\":\"Post created successfully\",\"post\":{\"id\":2,\"user_id\":2,\"title\":\"poste de tata\",\"body\":\"THis is the body 123\",\"created_at\":\"2026-03-12T19:49:28.000000Z\",\"updated_at\":\"2026-03-12T19:49:28.000000Z\"}}",
+                            "code": 404,
+                            "body": "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Post] 16\"\n}",
                             "name": ""
                         }
                     ]
@@ -214,7 +166,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "2",
+                                    "value": "16",
                                     "description": "The ID of the post."
                                 }
                             ]
@@ -253,7 +205,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "2",
+                                    "value": "16",
                                     "description": "The ID of the post."
                                 }
                             ]
@@ -369,6 +321,60 @@
                         "description": "This endpoint allows you to logout an user.\nYou must be authenticated to access this endpoint, and the token used for authentication will be revoked."
                     },
                     "response": []
+                }
+            ]
+        },
+        {
+            "name": "User resources",
+            "description": "\nThose endpoints allows you to fetch users resources.",
+            "item": [
+                {
+                    "name": "\ud83d\udc64 Fetch all users",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/users",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/users"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "This endpoint allows you to fetch all users.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         }

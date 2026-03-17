@@ -22,3 +22,20 @@ composer serve
 ```bash
 php artisan route:list
 ```
+
+
+## How to generate Scribe API DOcs
+
+```bash
+php artisan scribe:generate
+
+Http://{base_url}/api/docs
+```
+
+## How to populate database with fake data
+
+```bash
+php artisan make:fresh
+php artisan dn:seed
+```
+
