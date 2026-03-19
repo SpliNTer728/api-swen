@@ -24,7 +24,7 @@ export default function Register() {
         setErrors({});
 
         if (password !== passwordConfirmation) {
-            setErrors({ password_confirmation: 'Passwords do not match.' });
+            setErrors({ password_confirmation: 'Les mots de passe ne correspondent pas.' });
             return;
         }
 
@@ -52,7 +52,7 @@ export default function Register() {
                     }
                     setErrors(flat);
                 } else {
-                    setErrors({ general: data.message ?? 'Registration failed.' });
+                    setErrors({ general: data.message ?? 'Échec de l\'inscription.' });
                 }
                 return;
             }
@@ -60,17 +60,17 @@ export default function Register() {
             login(data.token);
             navigate('/dashboard');
         } catch {
-            setErrors({ general: 'An unexpected error occurred.' });
+            setErrors({ general: 'Une erreur inattendue s\'est produite.' });
         } finally {
             setLoading(false);
         }
     }
 
     return (
-        <AuthCardLayout title="Create an account" description="Enter your details to get started">
+        <AuthCardLayout title="Créer un compte" description="Entrez vos informations pour commencer">
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">Nom</Label>
                     <Input
                         id="name"
                         type="text"
@@ -96,7 +96,7 @@ export default function Register() {
                 </div>
 
                 <div className="grid gap-2">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">Mot de passe</Label>
                     <PasswordInput
                         id="password"
                         autoComplete="new-password"
@@ -108,7 +108,7 @@ export default function Register() {
                 </div>
 
                 <div className="grid gap-2">
-                    <Label htmlFor="password_confirmation">Confirm Password</Label>
+                    <Label htmlFor="password_confirmation">Confirmer le mot de passe</Label>
                     <PasswordInput
                         id="password_confirmation"
                         autoComplete="new-password"
@@ -121,14 +121,14 @@ export default function Register() {
 
                 <InputError message={errors.general} />
 
-                <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Creating account…' : 'Create account'}
+                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={loading}>
+                    {loading ? 'Création en cours…' : 'Créer mon compte'}
                 </Button>
 
-                <p className="text-center text-sm text-muted-foreground">
-                    Already have an account?{' '}
+                <p className="text-center text-sm text-gray-700">
+                    Déjà un compte ?{' '}
                     <Link to="/login" className="underline underline-offset-4">
-                        Log in
+                        Se connecter
                     </Link>
                 </p>
             </form>

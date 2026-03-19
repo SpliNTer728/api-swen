@@ -46,7 +46,24 @@ export default function Login() {
     }
 
     return (
-        <AuthCardLayout title="Log in" description="Enter your credentials to access your account">
+        <AuthCardLayout title="Connexion" description="Entrez vos identifiants pour accéder à votre compte">
+            <div className="flex flex-col gap-3 mb-2">
+                <button type="button" className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-3 px-4 font-semibold text-gray-700 bg-white hover:bg-gray-50 transition text-sm">
+                    <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
+                    Continuer avec Google
+                </button>
+                <button type="button" className="w-full flex items-center justify-center gap-2 border border-gray-200 rounded-lg py-3 px-4 font-semibold text-gray-700 bg-white hover:bg-gray-50 transition text-sm">
+                    <img src="https://www.svgrepo.com/show/512120/facebook-176.svg" alt="Facebook" className="w-5 h-5" />
+                    Continuer avec Facebook
+                </button>
+            </div>
+
+            <div className="flex items-center gap-3 my-2">
+                <div className="flex-grow border-t border-gray-200"></div>
+                <span className="text-gray-400 text-sm">Ou continuer avec email</span>
+                <div className="flex-grow border-t border-gray-200"></div>
+            </div>
+
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -62,12 +79,12 @@ export default function Login() {
 
                 <div className="grid gap-2">
                     <div className="flex items-center justify-between">
-                        <Label htmlFor="password">Password</Label>
+                        <Label htmlFor="password">Mot de passe</Label>
                         <Link
                             to="/forgot-password"
-                            className="text-sm text-muted-foreground hover:underline"
+                            className="text-sm text-gray-600 hover:underline"
                         >
-                            Forgot password?
+                            Mot de passe oublié ?
                         </Link>
                     </div>
                     <PasswordInput
@@ -80,14 +97,14 @@ export default function Login() {
                     <InputError message={error} />
                 </div>
 
-                <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Logging in…' : 'Log in'}
+                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white" disabled={loading}>
+                    {loading ? 'Connexion en cours…' : 'Se connecter'}
                 </Button>
 
-                <p className="text-center text-sm text-muted-foreground">
-                    Don't have an account?{' '}
+                <p className="text-center text-sm text-gray-700">
+                    Pas encore de compte ?{' '}
                     <Link to="/register" className="underline underline-offset-4">
-                        Register
+                        Créer un compte
                     </Link>
                 </p>
             </form>
