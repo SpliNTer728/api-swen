@@ -8,7 +8,7 @@ use App\Models\User;
 
 
 /**
- * @group User resources
+ * @group 👤 User resources
  *
  * Those endpoints allows you to fetch users resources.
  */

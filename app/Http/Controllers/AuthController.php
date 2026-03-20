@@ -8,14 +8,14 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Support\Facades\Hash;
 
 /**
- * @group User management
+ * @group 🔒 User Authentication
  *
- * Those endpoints allows you to add user, login and logout.
+ * Those endpoints allows to register, login and logout users.
  */
 class AuthController extends Controller
 {
     /**
-     * 👤 Register an user
+     * Register an user
      * 
      * Name, email and password are required to register an user.
      */
@@ -38,7 +38,7 @@ class AuthController extends Controller
     }
 
     /**
-     * 👤 Login an user
+     * Login an user
      *
      * This endpoint allows you to login an user.
      * The email must exist in the database, and the password must be correct.
@@ -53,7 +53,11 @@ class AuthController extends Controller
         $user = User::where('email', $fields['email'])->first();
         
         if(!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json([
+                'errors' => [
+                    'email' => ['The provided credentials are incorrect.']
+
+            ]], 401);
         }
 
         $token = $user->createToken($request->email)->plainTextToken;
@@ -65,7 +69,7 @@ class AuthController extends Controller
     }
 
     /**
-     * 👤 🔒 Logout an user
+     * Logout an user
      *
      * This endpoint allows you to logout an user.
      * You must be authenticated to access this endpoint, and the token used for authentication will be revoked.
