@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
         $table->id();
-        $table->foreign('schedule_slot_id')->references('id')->on('schedule_slots');
+        $table->foreignId('schedule_slot_id')->constrained();
         $table->string('stripe_customer_id');
         $table->string('stripe_checkout_session_id');
         $table->integer('stripe_payment_intent_id');
