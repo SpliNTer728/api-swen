@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('role')->default('user');
+            $table->string('stripe_customer_id')->nullable();
+            $table->integer('niveau')->default(1);
             $table->boolean('actif')->default(true);
             $table->timestamps();
         });
