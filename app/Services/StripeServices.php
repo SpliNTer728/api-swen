@@ -6,7 +6,7 @@ use Stripe\Stripe;
 use Stripe\Product;
 use Stripe\Customer;
 
-class StripeService
+class StripeServices
 {
     public function __construct()
     {

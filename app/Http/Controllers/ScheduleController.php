@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\StripeServices;
+use App\Models\ScheduleSlot;
 
 class ScheduleController extends Controller
 {
@@ -14,11 +15,13 @@ class ScheduleController extends Controller
     }
 
     /**
-     * 
+     * Retrieve a list of all schedule slots
      */
     public function index() {
-        return response()->json([
-            'message' => 'ScheduleController index',
-        ]);
+        // return response()->json([
+        //     'message' => 'ScheduleController index',
+        // ]);
+
+        return ScheduleSlot::currentWeek()->get();
     }
 }
