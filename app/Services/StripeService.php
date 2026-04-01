@@ -10,7 +10,7 @@ class StripeService
 {
     public function __construct()
     {
-        Stripe::setApiKey(config('STRIPE_KEY'));
+        Stripe::setApiKey(env('STRIPE_KEY'));
     }
 
     public function getProducts()
