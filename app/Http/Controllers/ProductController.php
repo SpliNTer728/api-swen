@@ -20,9 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $flat_products = array();
-        $flat_products = $this->stripeServices->getAllProducts();
-        return StripeServices::formatProduct($flat_products);
+        return $this->stripeServices->getAllProducts();
     }
 
     /**
