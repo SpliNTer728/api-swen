@@ -30,8 +30,6 @@ class UserController extends Controller implements HasMiddleware
      */
     public function index(Request $request)
     {
-       //$user = User::find($request->user()->id);
-
         $user = $request->user();
 
         return response()->json($user);

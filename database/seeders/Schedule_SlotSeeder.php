@@ -7,39 +7,81 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use App\Services\StripeServices;
+
 class Schedule_SlotSeeder extends Seeder
 {
+     protected $slots;
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $slots = [];
-        for ($i = 0; $i < 5; $i++) {
-            $date = now()->addDays($i);
-            // heure de début entre 8h et 16h
-            $start = (clone $date)->setTime(rand(8, 16), 0);
+        $this->slots = array();
+        $journaliers = array();
+        $soirees = array();
 
-            // durée entre 1h et 3h
-            $end = (clone $start)->addHours(rand(1, 3));
+        $stripe = app(StripeServices::class);
 
-            $capacity = rand(5, 12);
-            $spotsRemaining = rand(0, $capacity);
+        $slot_products = $stripe->getSlots();
+        $journaliers = array_filter($slot_products, fn($p) => $p['format'] === 'Journalier');
+        $soirees = array_filter($slot_products, fn($p) => $p['format'] === 'Soirée');
 
-            $slots[] = [
-                'stripe_product_id' => 'prod_' . strtoupper(Str::random(6)),
-                'date' => $date->toDateString(),
-                'start_time' => $start,
-                'end_time' => $end,
-                'capacity' => $capacity,
-                'spots_remaining' => $spotsRemaining,
-                'status' => $spotsRemaining === 0 ? 'full' : 'open',
-                'women_sailing' => (bool) rand(0, 1),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
+        $origin_date = now()->next('Monday');
+        $finale_date = $origin_date->copy()->addMonths(1);
+        $day_finale = $origin_date->diffInDays($finale_date);
+
+        for($day=0; $day<$day_finale; $day++) 
+        {
+            $rand_key = array_rand($journaliers, 1);
+            $product = $journaliers[$rand_key] ?? null;
+            if(!empty($product)) 
+            {
+                $this->createSlot($product, $origin_date, $day);
+            }
         }
 
-        DB::table('schedule_slots')->insert($slots);
+        for($day=0; $day<$day_finale; $day++) 
+        {
+            $rand_key = array_rand($soirees, 1);
+            $product = $soirees[$rand_key] ?? null;
+            if(!empty($product)) 
+            {
+                $this->createSlot($product, $origin_date, $day, 17);
+            }
+        }
+
+        dump($this->slots);
+        DB::table('schedule_slots')->insert($this->slots);
+    }
+
+    /**
+     * Crée un créneau à partir d'un produit Stripe
+     */
+    private function createSlot($product, $origin_date, $day, $debut=9)
+    {
+        if(!empty($product)) 
+        {
+            $duree = intval($product['duree_heures']) ?? 0;
+            $date = (clone $origin_date)->addDays($day);
+            $start = (clone $date)->setTime($debut, 0);
+            $end = (clone $start)->addHours($duree);
+            
+            $spots_remaining = intval($product['max_spots']) - rand(0, intval($product['max_spots']));
+
+            $this->slots[] = [
+                'stripe_product_id' => $product['stripe_product_id'],
+                'date' => $date->toDateString(),
+                'start_time' => $start->toTimeString(),
+                'end_time' => $end->toTimeString(),
+                'capacity' => $product['max_spots'],
+                'spots_remaining' => $spots_remaining,
+                'status' => $spots_remaining === 0 ? 'full' : 'open',
+                'women_sailing' => (bool) rand(0, 1),
+                'created_at' => now()->toDateString(),
+                'updated_at' => now()->toDateString(),
+            ];
+        }
     }
 }
