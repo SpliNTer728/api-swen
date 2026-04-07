@@ -8,6 +8,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 
 Route::apiResource('posts', PostController::class);
 
@@ -35,5 +36,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/products/slots', [ProductController::class, 'indexSlots']);
     Route::get('/products/formules', [ProductController::class, 'indexFormules']);
+
+    // customers
+    Route::get('/customers', [CustomerController::class, 'index']);
 });
 
