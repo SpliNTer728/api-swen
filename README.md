@@ -24,18 +24,13 @@ php artisan route:list
 ```
 
 
-## How to generate Scribe API DOcs
-
-```bash
-php artisan scribe:generate
-
-Http://{base_url}/docs
-```
-
 ## How to populate database with fake data
 
 ```bash
 php artisan make:fresh
-php artisan dn:seed
+php artisan db:seed
+
+php artisan db:seed --class=Schedule_SlotSeeder
+php artisan db:seed --class=BookingSeeder
 ```
 

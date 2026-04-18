@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
-    return redirect('http://web.fluxplay.fr/services.html');
+    return redirect('/web/services.html');
 });
 
 // Route::get('/', function() {
