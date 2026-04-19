@@ -24,9 +24,9 @@ jobs:
           password: ${{ secrets.SSH_PWD }}
           script: |
             cd /home/ubuntu/work/api-swen && git pull origin main
-            php artisan cache:clear
-            php artisan config:clear
-            php artisan route:clear
+            docker exec -i -w /var/www/html api-swen php artisan cache:clear
+            docker exec -i -w /var/www/html api-swen php artisan config:clear
+            docker exec -i -w /var/www/html api-swen php artisan route:clear
             # cd /home/ubuntu/work/api-swen && git pull origin main && composer install --no-dev
             # php artisan migrate --force
             # php artisan config:cache
