@@ -11,18 +11,19 @@ jobs:
       - run: composer install
       - run: cp .env.example .env && php artisan key:generate
       - run: php artisan test
-  # deploy:
-  #   needs: tests
-  #   if: github.ref == 'refs/heads/main'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Deploy to Server
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.HOST }}
-  #         username: ${{ secrets.USERNAME }}
-  #         key: ${{ secrets.SSH_KEY }}
-  #         script: |
-  #           cd /var/www/api && git pull origin main && composer install --no-dev
-  #           php artisan migrate --force
-  #           php artisan config:cache
+  deploy:
+    needs: tests
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PWD }}
+          script: |
+            cd /home/ubuntu/work/api-swen && git pull origin main
+            # cd /home/ubuntu/work/api-swen && git pull origin main && composer install --no-dev
+            # php artisan migrate --force
+            # php artisan config:cache
